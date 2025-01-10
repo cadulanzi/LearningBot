@@ -1,0 +1,23 @@
+# Ambiente virtual
+venv/
+.env
+
+# Configurações específicas do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos gerados por Streamlit
+.streamlit/
+
+# Dados e logs
+*.log
+db_storage/
+
+# Configuração do Docker
+*.pid
