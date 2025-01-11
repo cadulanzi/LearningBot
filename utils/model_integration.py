@@ -1,18 +1,15 @@
-from langchain import OpenAI
-from langchain.chains import ConversationChain
+from transformers import pipeline
 from utils.database import store_information
 
-def get_llm():
-    """Inicializa o modelo de linguagem"""
-    return ConversationChain(llm=OpenAI(temperature=0.5))
+generator = pipeline("text-generation", model="EleutherAI/gpt-neo-2.7B")
 
 def generate_response(prompt):
-    """Gera uma resposta a partir de um prompt"""
-    llm = get_llm()
-    return llm.run(prompt)
+    """Gera uma resposta usando Hugging Face GPT-2"""
+    response = generator(prompt, max_length=100, num_return_sequences=1)
+    return response[0]["generated_text"]
 
 def validate_and_store(prompt, response):
-    """Valida e armazena respostas com base em regras"""
+    """Valida e armazena respostas"""
     if "falso" in response.lower():
         return "Informação rejeitada como falsa."
     store_information(prompt, response)
